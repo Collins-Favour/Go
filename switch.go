@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func main() {
@@ -21,4 +22,25 @@ func main() {
 		fmt.Println(" You won bronze ")
 
 	}
+	switch time.Now().Weekday() {
+	case time.Friday, time.Sunday:
+		fmt.Println("Its weekend")
+	default:
+		fmt.Println("Its a weekday")
+	}
+
+	t := time.Now()
+	switch {
+	case t.Hour() < 10:
+		fmt.Println("It's Morning")
+	case t.Hour() < 13:
+		fmt.Println("it's Noon")
+	case t.Hour() < 16:
+		fmt.Println("Its afternoon")
+	case t.Hour() < 19:
+		fmt.Println("It's Evening")
+	default:
+		fmt.Println("It's Night")
+	}
+
 }
