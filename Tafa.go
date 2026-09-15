@@ -19,7 +19,7 @@ func main() {
 		var userName string
 		var userTickets uint
 		var phoneNumber int
-		// Enter Name
+		// deatails entry
 		fmt.Println("Enter your Name")
 		fmt.Scan(&userName)
 		fmt.Println("Enter your phone number")
