@@ -108,15 +108,21 @@ func handleBookings(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(APIResponse{Message: "Invalid JSON request body"})
 			return
 		}
-		if len(req.UserName) < 50 {
+		if len(req.UserName) >= 50 {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(APIResponse{Message: "Name is to long"})
+			return
 
 		}
 
 		if len(req.PhoneNumber) < 10 || len(req.PhoneNumber) > 13 {
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(APIResponse{Message: "Invalid phone number"})
+			return
+		}
+		if req.UserTickets == 0 {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(APIResponse{Message: "you must book atleast one ticket"})
 			return
 		}
 
@@ -132,12 +138,9 @@ func handleBookings(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		mutex.Lock()
 		bookingProcess(&remainingTickets, req.UserTickets)
 		userPointer := createUserData(req.UserName, req.PhoneNumber, req.UserTickets)
 		bookings = append(bookings, userPointer)
-
-		mutex.Unlock()
 
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(APIResponse{

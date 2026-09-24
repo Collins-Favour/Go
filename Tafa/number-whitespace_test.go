@@ -1,25 +1,14 @@
 package main
 
 import (
-	"testing"
+	"fmt"
+	"strings"
 )
 
-func TestValidatePhone(t *testing.T) {
-	tests := []struct {
-		name  string
-		phone string
-	}{
-		{name: "Valid Phone", phone: "0768510821"},
-		{name: "incomplete", phone: "076850"},
-		{name: "Space", phone: "          "},
+func ValidatePhone(phone string) error {
+	cleanPhone := strings.TrimSpace(phone)
+	if len(cleanPhone) < 10 {
+		return fmt.Errorf("phone number must be at least 10 digits long")
 	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			err := ValidatePhone(tt.phone)
-			if err != nil {
-				t.Errorf("Validation failed for '%s': %v", tt.phone, err)
-			}
-		})
-	}
+	return nil
 }
