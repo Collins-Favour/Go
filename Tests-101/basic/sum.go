@@ -1,11 +1,11 @@
-package tests
+package main
 
 import (
 	"fmt"
 )
 
 func main() {
-	fmt.Print(Sum(4, 5))
+	fmt.Println(Sum(4577, 5))
 }
 func Sum(a, b int) int {
 	return a + b
